@@ -201,6 +201,41 @@ class DirectedGraph {
 
   /**
    * @public
+   * traverse all vertices in the graph using breadth-first search
+   * While constructing a flat BF tree
+   * @param {number|string} srcKey
+   * @param {function} cb
+   */
+  constructBfsTree(srcKey, cb) {
+    if (!this.hasVertex(srcKey)) return;
+
+    const queue = new Queue([srcKey]);
+    const visited = new Set([srcKey]);
+
+    while (!queue.isEmpty()) {
+      const vertex = this._vertices.get(queue.dequeue());
+
+      // check depth
+      const vertexValue = vertex.getValue();
+      vertexValue.bfsDepth = ( vertexValue.bfsParent ) ? this._vertices.get(vertexValue.bfsParent).getValue().bfsDepth + 1 : 0;
+
+      // return vertex
+      cb(vertex);
+
+      this._edges.get(vertex.getKey()).forEach((weight, destKey) => {
+        if (visited.has(destKey)) return;
+        // update vertex of destination and assign parent
+        // (this will alter our data structure so not a very clean solution)
+        this._vertices.get(destKey).getValue().bfsParent = vertex.getKey();
+
+        queue.enqueue(destKey);
+        visited.add(destKey);
+      });
+    }
+  }
+
+  /**
+   * @public
    * clears the graph
    */
   clear() {
