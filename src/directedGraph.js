@@ -209,6 +209,12 @@ class DirectedGraph {
   constructBfsTree(srcKey, cb) {
     if (!this.hasVertex(srcKey)) return;
 
+    // reset all values of depth and parents
+    this._vertices.forEach( v => {
+      delete v.value.bfsParent;
+      delete v.value.bfsDepth;
+    });
+
     const queue = new Queue([srcKey]);
     const visited = new Set([srcKey]);
 
