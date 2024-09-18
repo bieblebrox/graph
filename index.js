@@ -1,4 +1,4 @@
-const Graph = require('./src/graph');
-const DirectedGraph = require('./src/directedGraph');
-
-module.exports = { Graph, DirectedGraph };
+const {Graph} = require('./src/graph');
+const {DirectedGraph} = require('./src/directedGraph');
+exports.Graph = Graph;
+exports.DirectedGraph = DirectedGraph;

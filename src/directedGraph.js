@@ -4,8 +4,8 @@
  * @license MIT
  */
 
-const Queue = require('@datastructures-js/queue');
-const Vertex = require('./vertex');
+const Queue = require("@datastructures-js/queue");
+const { Vertex } = require("./vertex");
 
 /**
  * @class DirectedGraph
@@ -95,9 +95,11 @@ class DirectedGraph {
    * @returns {boolean}
    */
   hasEdge(srcKey, destKey) {
-    return this.hasVertex(srcKey)
-      && this.hasVertex(destKey)
-      && this._edges.get(srcKey).has(destKey);
+    return (
+      this.hasVertex(srcKey) &&
+      this.hasVertex(destKey) &&
+      this._edges.get(srcKey).has(destKey)
+    );
   }
 
   /**
@@ -210,7 +212,7 @@ class DirectedGraph {
     if (!this.hasVertex(srcKey)) return;
 
     // reset all values of depth and parents
-    this._vertices.forEach( v => {
+    this._vertices.forEach((v) => {
       delete v.value.bfsParent;
       delete v.value.bfsDepth;
     });
@@ -223,7 +225,9 @@ class DirectedGraph {
 
       // check depth
       const vertexValue = vertex.getValue();
-      vertexValue.bfsDepth = ( vertexValue.bfsParent ) ? this._vertices.get(vertexValue.bfsParent).getValue().bfsDepth + 1 : 0;
+      vertexValue.bfsDepth = vertexValue.bfsParent
+        ? this._vertices.get(vertexValue.bfsParent).getValue().bfsDepth + 1
+        : 0;
 
       // return vertex
       cb(vertex);
@@ -251,4 +255,4 @@ class DirectedGraph {
   }
 }
 
-module.exports = DirectedGraph;
+exports.DirectedGraph = DirectedGraph;
