@@ -25,4 +25,4 @@ class Vertex {
   }
 }
 
-module.exports = Vertex;
+exports.Vertex = Vertex;

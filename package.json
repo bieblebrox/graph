@@ -3,6 +3,7 @@
   "version": "4.0.2",
   "description": "graph & directed graph implementation in javascript",
   "main": "index.js",
+  "typings": "index.d.ts",
   "scripts": {
     "test": "grunt test"
   },
